@@ -2,22 +2,21 @@ package ru.netology.springHibernate.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
 
 @Entity
+@IdClass(PersonId.class)
 @Table(name = "persons")
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     private String name;
 
+    @Id
     private String surname;
 
+    @Id
     private Integer age;
 
     @Column(name = "phone_number")
@@ -29,21 +28,13 @@ public class Person {
     public Person() {
     }
 
-    public Person(Integer id, String name, String surname, Integer age, String phoneNumber, String cityOfLiving) {
-        this.id = id;
+    public Person(String name, String surname, Integer age, String phoneNumber,
+                  String cityOfLiving) {
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.phoneNumber = phoneNumber;
         this.cityOfLiving = cityOfLiving;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -84,17 +75,5 @@ public class Person {
 
     public void setCityOfLiving(String cityOfLiving) {
         this.cityOfLiving = cityOfLiving;
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", age=" + age +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", cityOfLiving='" + cityOfLiving + '\'' +
-                '}';
     }
 }
