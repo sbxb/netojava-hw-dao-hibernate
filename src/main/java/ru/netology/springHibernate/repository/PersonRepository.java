@@ -14,7 +14,7 @@ public class PersonRepository {
         return em.createQuery("SELECT p FROM Person p", Person.class)
                 .getResultList()
                 .stream()
-                .filter(p -> p.getCityOfLiving().equals(city))
+                .filter(p -> p.getCityOfLiving().toLowerCase().equals(city.toLowerCase()))
                 .findFirst()
                 .orElse(null);
     }
