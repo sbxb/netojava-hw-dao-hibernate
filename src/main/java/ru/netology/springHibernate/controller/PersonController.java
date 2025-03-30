@@ -11,6 +11,8 @@ import ru.netology.springHibernate.exception.PersonNotFound;
 import ru.netology.springHibernate.model.Person;
 import ru.netology.springHibernate.repository.PersonRepository;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/persons")
 public class PersonController {
@@ -21,16 +23,16 @@ public class PersonController {
     }
 
     @GetMapping("/by-city")
-    public Person getPersonByCity(@RequestParam("city") String city) {
-        var person = repo.getPersonsByCity(city);
-        if (person == null) {
+    public List<Person> getPersonsByCity(@RequestParam("city") String city) {
+        var persons = repo.getPersonsByCity(city);
+        if (persons.isEmpty()) {
             throw new PersonNotFound("No person in " + city + " was found");
         }
-        return person;
+        return persons;
     }
 
     @ExceptionHandler(PersonNotFound.class)
-    public ResponseEntity<String> invalidCredentialsHandler(PersonNotFound e) {
+    public ResponseEntity<String> absentPersonHandler(PersonNotFound e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
