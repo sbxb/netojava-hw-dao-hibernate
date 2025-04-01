@@ -24,7 +24,7 @@ public class PersonController {
 
     @GetMapping("/by-city")
     public List<Person> getPersonsByCity(@RequestParam("city") String city) {
-        var persons = repo.getPersonsByCity(city);
+        var persons = repo.findByCityOfLivingIgnoreCase(city);
         if (persons.isEmpty()) {
             throw new PersonNotFound("No person in " + city + " was found");
         }
