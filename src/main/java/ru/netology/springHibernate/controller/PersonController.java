@@ -45,7 +45,8 @@ public class PersonController {
     }
 
     @GetMapping("/by-name")
-    public Person getPersonByNameAndSurname(@RequestParam("name") String name, @RequestParam("surname") String surname) {
+    public Person getPersonByNameAndSurname(@RequestParam("name") String name, @RequestParam(
+            "surname") String surname) {
         var person = repo.findOneByNameIgnoreCaseAndSurnameIgnoreCase(name, surname);
         if (person.isEmpty()) {
             throw new PersonNotFound("No person named " + name + " " + surname + " was found");
@@ -62,7 +63,8 @@ public class PersonController {
     public Person getById(PersonId id) {
         var person = repo.findById(id);
         if (person.isEmpty()) {
-            throw new PersonNotFound("No person named " + id.name() + " " + id.surname() + " with age " + id.age() + " was found");
+            throw new PersonNotFound("No person named " + id.name() + " " + id.surname() + " with" +
+                    " age " + id.age() + " was found");
         }
         return person.get();
     }
